@@ -1,0 +1,35 @@
+# Root ignore rules for ExchangeRateProvider
+
+# .NET build artifacts
+**/bin/
+**/obj/
+.vs/
+TestResults/
+
+# .NET user-specific files
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet packages and symbols
+*.nupkg
+*.snupkg
+
+# Logs
+*.log
+
+# Frontend dependencies and build output
+frontend/node_modules/
+frontend/dist/
+frontend/tmp/
+frontend/out-tsc/
+frontend/bazel-out/
+frontend/.angular/cache/
+frontend/.sass-cache/
+frontend/coverage/
+
+# Frontend package manager logs
+npm-debug.log*
+yarn-error.log*
