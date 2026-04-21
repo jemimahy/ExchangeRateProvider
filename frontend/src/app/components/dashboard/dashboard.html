@@ -1,0 +1,94 @@
+<div class="converter-wrapper">
+  <div class="converter-box">
+    
+    <div class="column">
+      <div class="selector-wrapper">
+        <select 
+          class="minimal-select"
+          [ngModel]="sourceCurrency()" 
+          (ngModelChange)="sourceCurrency.set($event)">
+          @for (rate of rates(); track rate.currencyCode) {
+            <option [ngValue]="rate">{{ rate.country }} ({{ rate.currencyCode }})</option>
+          }
+        </select>
+      </div>
+      <div class="input-container">
+        <input 
+          type="number" 
+          class="amount-input"
+          [ngModel]="inputAmount()" 
+          (ngModelChange)="onAmountChange($event)"
+          (keydown)="preventEInput($event)"
+          placeholder="0"
+        />
+      </div>
+    </div>
+
+    <div class="swap-container">
+        <button type="button" class="swap-button" (click)="swapCurrencies()" title="Swap Currencies">
+        ⇆
+        </button>
+    </div>
+
+    <div class="column">
+      <div class="selector-wrapper">
+        <select 
+          class="minimal-select"
+          [ngModel]="targetCurrency()" 
+          (ngModelChange)="targetCurrency.set($event)">
+          @for (rate of rates(); track rate.currencyCode) {
+            <option [ngValue]="rate">{{ rate.country }} ({{ rate.currencyCode }})</option>
+          }
+        </select>
+      </div>
+      <div class="input-container output-style">
+        <input 
+          type="text" 
+          class="amount-input"
+          [value]="convertedResult() | number:'1.2-2'" 
+          readonly 
+        />
+      </div>
+    </div>
+
+  </div>
+
+  <div class="details-row">
+    <div class="detail-card">
+    <label class="detail-label">Exchange Rate</label>
+    <div class="detail-value-box">
+      <span class="detail-value">
+        1 {{ targetCurrency()?.currencyCode }} = 
+        {{ (targetCurrency()?.rate! / targetCurrency()?.amount!) | number:'1.3-3' }} CZK
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- TABLE -->
+<div class="table-container">
+  <h2 class="table-title">All Exchange Rates</h2>
+  <table class="rates-table">
+    <thead>
+      <tr>
+        <th>Country</th>
+        <th>Currency</th>
+        <th class="text-right">Amount</th>
+        <th>Code</th>
+        <th class="text-right">Rate (CZK)</th>
+      </tr>
+    </thead>
+    <tbody>
+    @for (item of sortedRates(); track item.currencyCode) {
+        <tr (click)="targetCurrency.set(item)" 
+            [class.active-row]="item.currencyCode === targetCurrency()?.currencyCode">
+        <td>{{ item.country }}</td>
+        <td>{{ item.currency }}</td>
+        <td class="text-right">{{ item.amount }}</td>
+        <td><strong>{{ item.currencyCode }}</strong></td>
+        <td class="text-right">{{ item.rate | number:'1.3-3' }}</td>
+        </tr>
+    }
+    </tbody>
+  </table>
+</div>
