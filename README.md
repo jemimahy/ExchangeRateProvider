@@ -15,7 +15,7 @@ cd ExchangeRateProvider
 ```
 2. Run the Backend (.NET)
 ```bash
-cd API
+cd backend
 dotnet restore
 dotnet run
 ```
