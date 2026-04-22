@@ -21,7 +21,7 @@ dotnet run
 ```
 3. Run the Frontend (Angular)
 ```bash
-cd ../Frontend
+cd ../frontend
 npm install
 ng serve
 ```
