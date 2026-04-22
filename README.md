@@ -10,7 +10,7 @@ A currency converter built with Angular and .NET. This application fetches real-
 ### Installation & Setup ###
 1. Clone the repository
 ```bash
-https://github.com/jemimahy/ExchangeRateProvider.git
+git clone https://github.com/jemimahy/ExchangeRateProvider.git
 cd ExchangeRateProvider
 ```
 2. Run the Backend (.NET)
