@@ -9,7 +9,7 @@
   gap: 50px;
 }
 
-.minimal-select {
+.country-select {
   width: 100%;
   padding: 8px 0;
   font-size: 16px;
@@ -23,7 +23,7 @@
   font-family: inherit;
 }
 
-.minimal-select:hover {
+.country-select:hover {
   border-bottom: 1px solid #dadce0;
 }
 
@@ -112,6 +112,8 @@
   min-height: 52px; 
   box-sizing: border-box;
   box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+  position: relative; 
+  overflow: hidden;
 }
 
 .detail-value {
@@ -128,6 +130,23 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   text-align: center;
+}
+
+/* loading input */
+.loading-input {
+  height: 50px;
+  width: 100%;
+  background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+  background-size: 200% 100%;
+  animation: shine 1.5s linear infinite;
+  border-radius: 8px;
+}
+
+.loading-exchange {
+  width: 100%;
+  height: 24px;
+  background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+  animation: shine 1.5s linear infinite;
 }
 
 /* table */
@@ -195,4 +214,93 @@
 
 .text-right {
   text-align: right;
+}
+
+/* loading and error states */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+.loading-cell, .loading-header {
+  background: #eee;
+  background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+  border-radius: 4px;
+  background-size: 200% 100%;
+  animation: shine 1.5s linear infinite;
+  padding: 20px 0px 0px 40px;
+}
+
+@keyframes shine {
+  to {
+    background-position-x: -200%;
+  }
+}
+
+.loading-wrapper {
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.loading-header {
+  height: 40px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.loading-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.loading-cell {
+  height: 20px;
+}
+.short { width: 15%; }
+.medium { width: 30%; }
+.long { width: 45%; }
+
+/* error */
+.error-container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 30px;
+  text-align: center;
+  background-color: #fef1f0; 
+  border: 1px solid #f9d7d5;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.error-container p {
+  color: #5f6368;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.retry-btn {
+  background-color: #d93025;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.retry-btn:hover {
+  background-color: #c5221f;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.retry-btn:active {
+  background-color: #a50e0e;
 }

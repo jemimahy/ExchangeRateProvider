@@ -21,6 +21,9 @@ export interface ExchangeRate {
 export class DashboardComponent implements OnInit {
   private exchangeService = inject(ExchangeService);
 
+  isLoading = signal<boolean>(true);
+  errorMessage = signal<string>('');
+
   rates = signal<ExchangeRate[]>([]);
   inputAmount = signal<number>(100);
   
@@ -49,6 +52,9 @@ export class DashboardComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.isLoading.set(true);
+    this.errorMessage.set('');
+
     this.exchangeService.getRates().subscribe({
       next: (data: ExchangeRate[]) => {
 
@@ -62,13 +68,25 @@ export class DashboardComponent implements OnInit {
 
         const fullList = [czkEntry, ...data];
         this.rates.set(fullList);
-
+        
         //default is czk to usd
         this.sourceCurrency.set(czkEntry);
         const usd = fullList.find(r => r.currencyCode === 'USD');
         this.targetCurrency.set(usd || fullList[1]);
+
+        this.isLoading.set(false);
       },
-      error: (err) => console.error('API Error:', err)
+      //error message
+      error: (err) => {
+        console.error('API Error:', err);
+        this.isLoading.set(false);
+        
+        if (err.status === 0) {
+          this.errorMessage.set('Cannot connect to the backend. Please ensure the .NET server is running.');
+        } else {
+          this.errorMessage.set('Failed to load exchange rates from CNB. Please try again later.');
+        }
+      }
     });
   }
 
